@@ -4,7 +4,7 @@ import com.cyber.domain.User;
 import com.cyber.repository.RoleRepository;
 import com.cyber.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +48,7 @@ public class UserService {
   }
 
   public String hashPassword(String plainTextPassword){
-    return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+//    return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    return "";
   }
 }

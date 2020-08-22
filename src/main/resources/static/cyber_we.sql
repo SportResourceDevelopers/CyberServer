@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 22 2020 р., 09:45
+-- Час створення: Сер 22 2020 р., 13:44
 -- Версія сервера: 5.7.24
 -- Версія PHP: 7.2.14
 
@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `gender` varchar(1) NOT NULL,
+  `date_of_birth` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 

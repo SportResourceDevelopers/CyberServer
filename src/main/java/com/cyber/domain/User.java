@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,12 @@ public class User {
 
   @Column(name = "city")
   private String city;
+
+  @Column(name = "gender")
+  private String gender;
+
+  @Column(name = "date_of_birth")
+  private Date dateOfBirth;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
