@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 21 2020 р., 17:21
+-- Час створення: Сер 22 2020 р., 09:45
 -- Версія сервера: 5.7.24
 -- Версія PHP: 7.2.14
 
@@ -31,9 +31,16 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`) VALUES
+(1, 'ROLE_ADMIN');
 
 -- --------------------------------------------------------
 
@@ -44,15 +51,29 @@ CREATE TABLE IF NOT EXISTS `roles` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(30) NOT NULL,
-  `first_name` varchar(30) NOT NULL,
-  `last_name` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `country` varchar(50) NOT NULL,
-  `city` varchar(50) NOT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблиці `user_role`
+--
+
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `user_id` bigint(20) NOT NULL,
+  `role_id` tinyint(4) NOT NULL,
+  KEY `user_id` (`user_id`),
+  KEY `role_id` (`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

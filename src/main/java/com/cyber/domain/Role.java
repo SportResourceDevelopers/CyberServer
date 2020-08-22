@@ -20,6 +20,6 @@ public class Role {
   @Column(name = "id")
   private Byte id;
 
-  @Column(name = "namr")
+  @Column(name = "name")
   private String name;
 }
