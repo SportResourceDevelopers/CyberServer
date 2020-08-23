@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 22 2020 р., 13:44
+-- Час створення: Сер 23 2020 р., 16:58
 -- Версія сервера: 5.7.24
 -- Версія PHP: 7.2.14
 
@@ -33,14 +33,15 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп даних таблиці `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'ROLE_ADMIN');
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER');
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `gender` varchar(1) NOT NULL,
   `date_of_birth` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `users`
+--
+
+INSERT INTO `users` (`id`, `city`, `country`, `email`, `first_name`, `last_name`, `username`, `password`, `gender`, `date_of_birth`) VALUES
+(1, 'LA', 'USA', 'abc@gmail.com', 'abc', 'def', 'noname', '$2a$10$IyWtEgH5ACHgputfnhTdReOjS7h9qpA7.sSBPcpjEttIevsGp8Adu', 'M', '2019-01-01');
 
 -- --------------------------------------------------------
 
@@ -76,6 +84,13 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   KEY `user_id` (`user_id`),
   KEY `role_id` (`role_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `user_role`
+--
+
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
+(12, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

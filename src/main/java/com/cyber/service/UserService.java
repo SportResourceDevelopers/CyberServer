@@ -4,7 +4,7 @@ import com.cyber.domain.User;
 import com.cyber.repository.RoleRepository;
 import com.cyber.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +33,8 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  public User getByEmail(String email) {
-    return userRepository.findByEmail(email);
+  public Optional<User> getByEmail(String email) {
+    return Optional.ofNullable(userRepository.findByEmail(email));
   }
 
   public User save(User user) {
@@ -48,7 +48,6 @@ public class UserService {
   }
 
   public String hashPassword(String plainTextPassword){
-//    return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
-    return "";
+    return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
   }
 }
