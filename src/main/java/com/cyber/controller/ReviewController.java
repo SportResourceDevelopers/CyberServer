@@ -40,7 +40,7 @@ public class ReviewController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{author}")
+    @GetMapping("/author/{author}")
     public ResponseEntity<List<Review>> getReviewByAuthor(@PathVariable String author) {
         List<Review> listByAuthor = reviewService.getByAuthor(author);
         if (listByAuthor.isEmpty()) {
@@ -50,7 +50,7 @@ public class ReviewController {
 
     }
 
-    @GetMapping("/{rating}")
+    @GetMapping("/rating/{rating}")
     public ResponseEntity<List<Review>> getReviewByRating(@PathVariable Byte rating) {
         List<Review> listByRating = reviewService.getByRating(rating);
         if (listByRating.isEmpty()) {
