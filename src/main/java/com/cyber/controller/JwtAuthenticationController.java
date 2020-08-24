@@ -5,6 +5,7 @@ import com.cyber.domain.JwtRequest;
 import com.cyber.domain.JwtResponse;
 import com.cyber.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -39,8 +40,10 @@ public class JwtAuthenticationController {
             .loadUserByUsername(authenticationRequest.getEmail());
 
     final String token = jwtTokenUtil.generateToken(userDetails);
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Authorization", token);
 
-    return ResponseEntity.ok(new JwtResponse(token));
+    return ResponseEntity.ok().headers(headers).body("ok");
   }
 
   private void authenticate(String username, String password) throws Exception {
