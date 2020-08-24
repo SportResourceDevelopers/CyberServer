@@ -41,21 +41,22 @@ public class ReviewController {
     }
 
     @GetMapping("/{author}")
-    public ResponseEntity<List<Review>> getReviewById(@PathVariable String author) {
-        Optional<List<Review>> optionalReviews = Optional.ofNullable(reviewService.getByAuthor(author));
-        if (optionalReviews.isPresent()) {
-            return ResponseEntity.ok(optionalReviews.get());
+    public ResponseEntity<List<Review>> getReviewByAuthor(@PathVariable String author) {
+        List<Review> listByAuthor = reviewService.getByAuthor(author);
+        if (listByAuthor.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(listByAuthor);
+
     }
 
     @GetMapping("/{rating}")
-    public ResponseEntity<List<Review>> getReviewById(@PathVariable Byte rating) {
-        Optional<List<Review>> optionalReviews = Optional.ofNullable(reviewService.getByRating(rating));
-        if (optionalReviews.isPresent()) {
-            return ResponseEntity.ok(optionalReviews.get());
+    public ResponseEntity<List<Review>> getReviewByRating(@PathVariable Byte rating) {
+        List<Review> listByRating = reviewService.getByRating(rating);
+        if (listByRating.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(listByRating);
     }
 
     @PostMapping
