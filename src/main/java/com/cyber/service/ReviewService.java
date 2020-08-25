@@ -12,34 +12,35 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ReviewService {
-    private final ReviewRepository reviewRepository;
 
-    @Autowired
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
+  private final ReviewRepository reviewRepository;
 
-    public Optional<Review> getById(Long id) {
-        return reviewRepository.findById(id);
-    }
+  @Autowired
+  public ReviewService(ReviewRepository reviewRepository) {
+    this.reviewRepository = reviewRepository;
+  }
 
-    public List<Review> getAll() {
-        return reviewRepository.findAll();
-    }
+  public Optional<Review> getById(Long id) {
+    return reviewRepository.findById(id);
+  }
 
-    public List<Review> getByAuthor(String author) {
-        return reviewRepository.findByAuthor(author);
-    }
+  public List<Review> getAll() {
+    return reviewRepository.findAll();
+  }
 
-    public List<Review> getByRating(Byte rating) {
-        return reviewRepository.findByRating(rating);
-    }
+  public List<Review> getByAuthor(String author) {
+    return reviewRepository.findByAuthor(author);
+  }
 
-    public Review save(Review review) {
-        return reviewRepository.save(review);
-    }
+  public List<Review> getByRating(Byte rating) {
+    return reviewRepository.findByRating(rating);
+  }
 
-    public void delete(Long id) {
-        reviewRepository.deleteById(id);
-    }
+  public Review save(Review review) {
+    return reviewRepository.save(review);
+  }
+
+  public void delete(Long id) {
+    reviewRepository.deleteById(id);
+  }
 }

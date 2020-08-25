@@ -19,24 +19,25 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Table(name = "Reviews")
 public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
-    @Column(name = "title")
-    private String title;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "text")
-    private String text;
+  @Column(name = "title")
+  private String title;
 
-    @Column(name = "author")
-    private String author;
+  @Column(name = "text")
+  private String text;
 
-    @Column(name = "link")
-    private String link;
+  @Column(name = "author")
+  private String author;
 
-    @Column(name = "rating")
-    private Byte rating;
+  @Column(name = "link")
+  private String link;
+
+  @Column(name = "rating")
+  private Byte rating;
 
 }

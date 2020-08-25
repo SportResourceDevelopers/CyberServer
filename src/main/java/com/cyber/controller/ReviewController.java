@@ -19,54 +19,55 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "review")
 public class ReviewController {
-    private final ReviewService reviewService;
 
-    @Autowired
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
+  private final ReviewService reviewService;
+
+  @Autowired
+  public ReviewController(ReviewService reviewService) {
+    this.reviewService = reviewService;
+  }
+
+  @GetMapping()
+  public ResponseEntity<List<Review>> getAllReview() {
+    return ResponseEntity.ok(reviewService.getAll());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
+    Optional<Review> optionalReview = reviewService.getById(id);
+    if (optionalReview.isPresent()) {
+      return ResponseEntity.ok(optionalReview.get());
     }
+    return ResponseEntity.notFound().build();
+  }
 
-    @GetMapping()
-    public ResponseEntity<List<Review>> getAllReview() {
-        return ResponseEntity.ok(reviewService.getAll());
+  @GetMapping("/author/{author}")
+  public ResponseEntity<List<Review>> getReviewByAuthor(@PathVariable String author) {
+    List<Review> listByAuthor = reviewService.getByAuthor(author);
+    if (listByAuthor.isEmpty()) {
+      return ResponseEntity.notFound().build();
     }
+    return ResponseEntity.ok(listByAuthor);
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
-        Optional<Review> optionalReview = reviewService.getById(id);
-        if (optionalReview.isPresent()) {
-            return ResponseEntity.ok(optionalReview.get());
-        }
-        return ResponseEntity.notFound().build();
+  }
+
+  @GetMapping("/rating/{rating}")
+  public ResponseEntity<List<Review>> getReviewByRating(@PathVariable Byte rating) {
+    List<Review> listByRating = reviewService.getByRating(rating);
+    if (listByRating.isEmpty()) {
+      return ResponseEntity.notFound().build();
     }
+    return ResponseEntity.ok(listByRating);
+  }
 
-    @GetMapping("/author/{author}")
-    public ResponseEntity<List<Review>> getReviewByAuthor(@PathVariable String author) {
-        List<Review> listByAuthor = reviewService.getByAuthor(author);
-        if (listByAuthor.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(listByAuthor);
+  @PostMapping
+  public ResponseEntity<Review> createReview(@RequestBody Review review) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(review));
+  }
 
-    }
-
-    @GetMapping("/rating/{rating}")
-    public ResponseEntity<List<Review>> getReviewByRating(@PathVariable Byte rating) {
-        List<Review> listByRating = reviewService.getByRating(rating);
-        if (listByRating.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(listByRating);
-    }
-
-    @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.save(review));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
-        reviewService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+    reviewService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 }
