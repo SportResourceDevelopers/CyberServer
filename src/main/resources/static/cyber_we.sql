@@ -93,6 +93,35 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (12, 2);
 COMMIT;
 
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблиці `reviews`
+--
+
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) DEFAULT NULL,
+  `text` text DEFAULT NULL,
+  `author` VARCHAR(45) DEFAULT NULL,
+  `link` VARCHAR(45) DEFAULT NULL,
+  `rating` TINYINT(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+
+
+--
+-- Дамп даних таблиці `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `title`, `text`, `author`, `link`, `rating`) VALUES
+(1, 'Civilization IV news', 'Civilization IV presents new super addons', 'Vasya Pupkin', 'http:\\cyberweserver\articles\article1', '3');
+
+-- --------------------------------------------------------
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
