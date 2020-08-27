@@ -1,6 +1,8 @@
 package com.cyber.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -13,11 +15,13 @@ public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    @Value("${spring.mail.username}")
+    private String from;
 
     @Override
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("mychalevytsh@gmail.com");
+        message.setFrom(from);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -30,7 +34,7 @@ public class EmailServiceImpl implements EmailService {
                 "Please, enter the six-digit code from this message on 'CyberWe' site\n" +
                 + getRandomKey();
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("mychalevytsh@gmail.com");
+        message.setFrom(from);
         message.setTo(to);
         message.setSubject("Confirm registration");
         message.setText(text);
