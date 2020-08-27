@@ -35,6 +35,12 @@ public class UserController {
     return ResponseEntity.notFound().build();
   }
 
+  @GetMapping("/confirmation")
+  @ResponseStatus(HttpStatus.OK)
+  public boolean confirmEmail(@RequestParam("emailkey") String emailkey) {
+    return userService.confirmEmail(emailkey);
+  }
+
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody User user) {
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));

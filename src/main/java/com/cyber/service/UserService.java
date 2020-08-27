@@ -18,11 +18,13 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final RoleRepository roleRepository;
+  private final EmailService emailService;
 
   @Autowired
-  public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+  public UserService(UserRepository userRepository, RoleRepository roleRepository, EmailService emailService) {
     this.userRepository = userRepository;
     this.roleRepository = roleRepository;
+    this.emailService = emailService;
   }
 
   public Optional<User> getById(Long id) {
@@ -41,6 +43,11 @@ public class UserService {
     user.setPassword(hashPassword(user.getPassword()));
     user.setRoles(Collections.singleton(roleRepository.getByName("ROLE_USER")));
     return userRepository.save(user);
+  }
+
+  public boolean confirmEmail(String emailkey){
+   /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    return false;
   }
 
   public void delete(Long id) {
