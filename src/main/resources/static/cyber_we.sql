@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 23 2020 р., 16:58
+-- Час створення: Сер 26 2020 р., 16:58
 -- Версія сервера: 5.7.24
 -- Версія PHP: 7.2.14
 
@@ -25,6 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблиці `reviews`
+--
+
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) DEFAULT NULL,
+  `text` text,
+  `author` varchar(45) DEFAULT NULL,
+  `link` varchar(45) DEFAULT NULL,
+  `rating` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `title`, `text`, `author`, `link`, `rating`) VALUES
+(1, 'Civilization IV news', 'Civilization IV presents new super addons', 'Vasya Pupkin', 'http:\\cyberweserverarticlesarticle1', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблиці `roles`
 --
 
@@ -33,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп даних таблиці `roles`
@@ -41,7 +65,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `name`) VALUES
 (1, 'ROLE_ADMIN'),
-(2, 'ROLE_USER');
+(2, 'ROLE_USER'),
+(3, 'ROLE_AUTHOR'),
+(4, 'ROLE_MODERATOR');
 
 -- --------------------------------------------------------
 
@@ -59,17 +85,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `gender` varchar(1) NOT NULL,
-  `date_of_birth` date NOT NULL,
+  `gender` varchar(1) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп даних таблиці `users`
 --
 
 INSERT INTO `users` (`id`, `city`, `country`, `email`, `first_name`, `last_name`, `username`, `password`, `gender`, `date_of_birth`) VALUES
-(1, 'LA', 'USA', 'abc@gmail.com', 'abc', 'def', 'noname', '$2a$10$IyWtEgH5ACHgputfnhTdReOjS7h9qpA7.sSBPcpjEttIevsGp8Adu', 'M', '2019-01-01');
+(1, 'LA', 'USA', 'user@gmail.com', 'abc', 'def', 'user', '$2a$10$IyWtEgH5ACHgputfnhTdReOjS7h9qpA7.sSBPcpjEttIevsGp8Adu', 'M', '2019-01-01'),
+(2, NULL, NULL, 'admin@gmail.com', NULL, NULL, 'admin', '$2a$10$CFPzvlCjanoQBsPoQNYdL.oRPZpmvXn9s/ZfurGOM5EvQz0nHmgcu', NULL, '2019-01-01'),
+(3, NULL, NULL, 'moderator@gmail.com', NULL, NULL, 'moderator', '$2a$10$D82adAEvop8fblEU9D39YuOzvROroF9rx01kByesqTgOgIHuJbvCe', NULL, '2019-01-01'),
+(4, NULL, NULL, 'author@gmail.com', NULL, NULL, 'author', '$2a$10$qa5VYbNGXYSncHXqjAEOQ.UsKWFezk4h1ZBwcEEXQ5N1.IDI7tELS', NULL, '2019-01-01');
 
 -- --------------------------------------------------------
 
@@ -90,37 +119,11 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 --
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
-(12, 2);
+(1, 2),
+(2, 1),
+(3, 4),
+(4, 3);
 COMMIT;
-
-
--- --------------------------------------------------------
-
---
--- Структура таблиці `reviews`
---
-
-DROP TABLE IF EXISTS `reviews`;
-CREATE TABLE IF NOT EXISTS `reviews` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) DEFAULT NULL,
-  `text` text DEFAULT NULL,
-  `author` VARCHAR(45) DEFAULT NULL,
-  `link` VARCHAR(45) DEFAULT NULL,
-  `rating` TINYINT(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
-
-
---
--- Дамп даних таблиці `reviews`
---
-
-INSERT INTO `reviews` (`id`, `title`, `text`, `author`, `link`, `rating`) VALUES
-(1, 'Civilization IV news', 'Civilization IV presents new super addons', 'Vasya Pupkin', 'http:\\cyberweserver\articles\article1', '3');
-
--- --------------------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
