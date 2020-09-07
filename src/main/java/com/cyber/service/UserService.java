@@ -39,7 +39,9 @@ public class UserService {
 
   public User save(User user) {
     user.setPassword(hashPassword(user.getPassword()));
-    user.setRoles(Collections.singleton(roleRepository.getByName("ROLE_USER")));
+    if (user.getId() == null) {
+      user.setRoles(Collections.singleton(roleRepository.getByName("ROLE_USER")));
+    }
     return userRepository.save(user);
   }
 

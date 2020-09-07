@@ -1,6 +1,8 @@
 package com.cyber.controller;
 
 import com.cyber.domain.User;
+import com.cyber.dto.UserDto;
+import com.cyber.mapper.UserMapper;
 import com.cyber.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class UserController {
 
   private final UserService userService;
+  private final UserMapper userMapper;
 
   @Autowired
-  public UserController(UserService userService) {
+  public UserController(UserService userService, UserMapper userMapper) {
     this.userService = userService;
+    this.userMapper = userMapper;
   }
 
   @GetMapping
@@ -36,7 +40,8 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> createUser(@RequestBody User user) {
+  public ResponseEntity<User> createUser(@RequestBody UserDto dto) {
+    User user = userMapper.map(dto);
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
   }
 
@@ -44,5 +49,10 @@ public class UserController {
   public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
     userService.delete(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping
+  public ResponseEntity<User> updateUser(@RequestBody User user) {
+    return ResponseEntity.ok(userService.save(user));
   }
 }
