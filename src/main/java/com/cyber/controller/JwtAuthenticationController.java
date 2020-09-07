@@ -40,7 +40,7 @@ public class JwtAuthenticationController {
 
     final String token = jwtTokenUtil.generateToken(userDetails);
     HttpHeaders headers = new HttpHeaders();
-    headers.set("authorization", token);
+    headers.set("Authorization", token);
 
     return ResponseEntity.noContent().headers(headers).build();
   }
