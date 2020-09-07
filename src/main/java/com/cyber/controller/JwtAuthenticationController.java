@@ -2,7 +2,6 @@ package com.cyber.controller;
 
 import com.cyber.config.JwtTokenUtil;
 import com.cyber.domain.JwtRequest;
-import com.cyber.domain.JwtResponse;
 import com.cyber.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,7 +42,7 @@ public class JwtAuthenticationController {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Authorization", token);
 
-    return ResponseEntity.ok().headers(headers).body("ok");
+    return ResponseEntity.noContent().headers(headers).build();
   }
 
   private void authenticate(String username, String password) throws Exception {
